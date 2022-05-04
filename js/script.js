@@ -9,7 +9,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?/1"
         },
         "likes": 80,
-        "created": "25-04-2022"
+        "created": "04-25-2022"
     },
     {
         "id": 2,
@@ -20,7 +20,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?/2"
         },
         "likes": 23,
-        "created": "25-04-2022"
+        "created": "04-25-2022"
     },
     {
         "id": 3,
@@ -31,7 +31,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?/3"
         },
         "likes": 115,
-        "created": "23-04-2022"
+        "created": "04-23-2022"
     },
     {
         "id": 4,
@@ -42,7 +42,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?/4"
         },
         "likes": 567,
-        "created": "15-04-2022"
+        "created": "04-22-2022"
     },
     {
         "id": 5,
@@ -53,11 +53,13 @@ const posts = [
             "image": "https://unsplash.it/300/300?/5"
         },
         "likes": 345,
-        "created": "13-04-2022"
+        "created": "04-13-2022"
     }
 ];
+
+
 //Ciclo foarEach
-const newArray = posts.forEach((element) => {
+posts.forEach((element) => {
 //creo la card nell'hatml
 	const createDiv = document.createElement("div");
 //assegno la classe alla card creata
@@ -84,13 +86,13 @@ const newArray = posts.forEach((element) => {
         <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#" data-postid="1">
+                    <a class="like-button  js-like-button" href="#" data-postid="${element.id}">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
                 </div>
                 <div class="likes__counter">
-                    Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+                    Piace a <b id="like-counter-${element.id}" class="js-likes-counter">${element.likes}</b> persone
                 </div>
             </div> 
         </div>         
@@ -99,3 +101,24 @@ const newArray = posts.forEach((element) => {
 
 });
 
+
+const buttons = document.querySelectorAll(".like-button");
+
+
+buttons.forEach((button) => {
+    button.addEventListener('click', function() {
+        let id = this.getAttribute('data-postid');
+        let like = document.querySelector("#like-counter-" + id);
+        console.log('cliccato ' + id, like);
+        let likeBtn = document.querySelector(".like-button")
+        likeBtn.classList.add("like-button--liked")
+        console.log(likeBtn);
+        let incrementCounter = document.querySelector(".likes__counter")
+    });
+});
+
+const counterPostLike = element.likes ;
+console.log(counterPostLike);
+
+
+  
