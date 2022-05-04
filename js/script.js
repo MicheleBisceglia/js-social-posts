@@ -9,7 +9,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?/1"
         },
         "likes": 80,
-        "created": "04-25-2022"
+        "created": "2022-01-25"
     },
     {
         "id": 2,
@@ -20,7 +20,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?/2"
         },
         "likes": 23,
-        "created": "04-25-2022"
+        "created": "2022-01-25"
     },
     {
         "id": 3,
@@ -31,7 +31,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?/3"
         },
         "likes": 115,
-        "created": "04-23-2022"
+        "created": "2022-01-23"
     },
     {
         "id": 4,
@@ -42,7 +42,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?/4"
         },
         "likes": 567,
-        "created": "04-22-2022"
+        "created": "2022-01-22"
     },
     {
         "id": 5,
@@ -53,18 +53,18 @@ const posts = [
             "image": "https://unsplash.it/300/300?/5"
         },
         "likes": 345,
-        "created": "04-13-2022"
+        "created": "2022-01-13"
     }
 ];
 
-
-//Ciclo foarEach
+//Milestone 2
+//Ciclo foarEach (scorro l'array)
 posts.forEach((element) => {
 //creo la card nell'hatml
 	const createDiv = document.createElement("div");
 //assegno la classe alla card creata
 	createDiv.classList.add("post-list");
-//inserisco icona e nome nella card
+//inserisco i dati nella card
 	createDiv.innerHTML = `
 
     <div class="post">
@@ -75,7 +75,7 @@ posts.forEach((element) => {
                 </div>
                 <div class="post-meta__data">
                     <div class="post-meta__author">${element.author.name}</div>
-                    <div class="post-meta__time">${element.created}</div>
+                    <div class="post-meta__time">${formateDate(element.created)}</div>
                 </div>                    
             </div>
         </div>
@@ -86,7 +86,7 @@ posts.forEach((element) => {
         <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#" data-postid="${element.id}">
+                    <a class="like-button  js-like-button" href="##" data-postid="${element.id}">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
@@ -101,24 +101,46 @@ posts.forEach((element) => {
 
 });
 
-
+//Milestone 3 
 const buttons = document.querySelectorAll(".like-button");
-
-
+const likedArray = [];
+console.log(likedArray);
 buttons.forEach((button) => {
+    //gestiamo il like al momento del click 
     button.addEventListener('click', function() {
         let id = this.getAttribute('data-postid');
         let like = document.querySelector("#like-counter-" + id);
         console.log('cliccato ' + id, like);
-        let likeBtn = document.querySelector(".like-button")
+        let likeBtn = document.querySelector(".like-button")  
+        //cambiamo il colore del tasto like al click
         likeBtn.classList.add("like-button--liked")
         console.log(likeBtn);
-        let incrementCounter = document.querySelector(".likes__counter")
+        //Preleviamo il valore del contatore dei like sotto formma numerica (parseInt)
+        let likesnumber = parseInt(like.textContent)
+        //aumentiamo il contatore del like di 1 al click
+        likesnumber = likesnumber + 1;
+        //stampo nella pagina il nuomo contatore dei like 
+        like.innerHTML = likesnumber
+        //pusho il numero di like dell'elemento cliccato in un array vuoto 
+        likedArray.push(likesnumber)
+
     });
 });
 
-const counterPostLike = element.likes ;
-console.log(counterPostLike);
+//Bonus 1 
+//Formattare le date in formato italiano gg/mm/aa
+function formateDate(originalDate) {
+    //creare un array con i parmetri di mm gg aa 
+    const originalDateArray = originalDate.split("-");
+    //invertiamo l'ordine degli elementi nell'array
+    const reverseDateArray = originalDateArray.reverse().join("/")
+    console.log(reverseDateArray);
+    return reverseDateArray
+}
+
+
+
+
 
 
   
